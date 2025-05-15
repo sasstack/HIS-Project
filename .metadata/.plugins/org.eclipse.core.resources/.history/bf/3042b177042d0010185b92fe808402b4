@@ -1,0 +1,26 @@
+package com.correspondence.repository;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name = "CO_TRIGGERS")
+public class CoTriggerRepo {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer trigId;
+	
+	private Integer caseNum;
+	
+	@Lob
+	private byte[] coPdf;
+	
+	private Boolean trgStatus;
+}

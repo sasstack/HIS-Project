@@ -1,0 +1,183 @@
+package com.datacollection.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.datacollection.binding.ChildrenBinding;
+import com.datacollection.binding.ChildrenRequest;
+import com.datacollection.binding.EducationBinding;
+import com.datacollection.binding.IncomeBinding;
+import com.datacollection.binding.PlanSelectionBinding;
+import com.datacollection.binding.SummaryBinding;
+import com.datacollection.entity.CaseEntity;
+import com.datacollection.entity.Children;
+import com.datacollection.entity.Education;
+import com.datacollection.entity.Income;
+import com.datacollection.feign.AppRegistrationInterface;
+import com.datacollection.feign.PlanRegistrationInterface;
+import com.datacollection.repository.CaseEntityRepo;
+import com.datacollection.repository.ChildrenRepo;
+import com.datacollection.repository.EducationRepo;
+import com.datacollection.repository.IncomeRepo;
+
+@Service
+public class DataCollectionServiceImpl implements DataCollectionService{
+	
+	private CaseEntityRepo caseEntityRepo;
+	private AppRegistrationInterface registrationInterface;
+
+	@Autowired
+	private PlanRegistrationInterface planRegistrationInterface;
+	@Autowired
+	private IncomeRepo incomeRepo;
+	
+	@Autowired
+	private EducationRepo educationRepo;
+	
+	@Autowired
+	private ChildrenRepo childrenRepo;
+	
+	public DataCollectionServiceImpl(CaseEntityRepo caseEntityRepo, AppRegistrationInterface registrationInterface) {
+		super();
+		this.caseEntityRepo = caseEntityRepo;
+		this.registrationInterface = registrationInterface;
+	}
+	
+
+	public String getPlanName(Integer planId) {
+		Map<Integer, String> body = planRegistrationInterface.planCategories().getBody();
+		for (Map.Entry<Integer, String> entry : body.entrySet()) {
+			if(entry.getKey()==planId) {
+				return entry.getValue();
+			}
+		}
+		return null;
+		
+	}
+
+	@Override
+	public Map<Integer, String> getPlans() {
+		Map<Integer, String> body = planRegistrationInterface.planCategories().getBody();
+		List<String> plans = new ArrayList<>(body.values());
+		 
+		return body;
+	}
+	@Override
+	public SummaryBinding getSummary(Long caseNum) {
+		String planName="";
+		Integer appId=0;
+		Income income = incomeRepo.findByCaseNum(caseNum);
+		Education education = educationRepo.findByCaseNum(caseNum);
+		List<Children> children = childrenRepo.findByCaseNum(caseNum);
+		Optional<CaseEntity> byId = caseEntityRepo.findById(caseNum);
+		if(byId.isPresent()) {
+			Integer planId = byId.get().getPlanId();
+			appId = byId.get().getAppId();
+			planName = getPlanName(planId);
+			
+		}
+		
+		SummaryBinding summary = new SummaryBinding();
+		summary.setAppId(appId);
+		summary.setPlanName(planName);
+		
+		IncomeBinding incomeBinding = new IncomeBinding();
+		System.out.println("INCOME : "+incomeBinding);
+		BeanUtils.copyProperties(income, incomeBinding);
+		summary.setIncome(incomeBinding);
+		
+		
+		EducationBinding educationBinding = new EducationBinding();
+		System.out.println("EDUCATIONBINDING : "+educationBinding);
+		BeanUtils.copyProperties(education, educationBinding);
+		summary.setEducation(educationBinding);
+		
+		List<ChildrenBinding> childs = new ArrayList<>();
+		for (Children child : children) {
+			ChildrenBinding childrenBinding = new ChildrenBinding();
+			BeanUtils.copyProperties(child, childrenBinding);
+			childs.add(childrenBinding);
+		}
+		summary.setChildren(childs);
+		System.out.println(summary);
+		return summary;
+	}
+
+	@Override
+	public Long loadCaseNum(Integer appId) {
+		Optional<CaseEntity> findByAppId = caseEntityRepo.findByAppId(appId);
+		if(findByAppId.isPresent()) {
+			return findByAppId.get().getCaseNum();
+		}
+		Boolean byId = registrationInterface.findById(appId);
+		
+		if(byId) {
+			CaseEntity caseEntity = new CaseEntity();
+			caseEntity.setAppId(appId);
+			caseEntity = caseEntityRepo.save(caseEntity);
+			return caseEntity.getCaseNum();
+		}
+		return 0l;
+	}
+
+	@Override
+	public Long saveChildrenData(ChildrenRequest request) {
+		List<ChildrenBinding> children = request.getChildren();
+		for (ChildrenBinding child : children) {
+			Children childEntity = new Children();
+			
+			BeanUtils.copyProperties(child, childEntity);
+			childrenRepo.save(childEntity);
+		}
+		
+		return request.getCaseNum();
+	}
+
+	@Override
+	public Long saveEducationData(EducationBinding educationBinding) {
+		Education educationEntity = new Education();
+		BeanUtils.copyProperties(educationBinding, educationEntity);
+		
+		educationRepo.save(educationEntity);
+		return educationEntity.getCaseNum();
+	}
+
+	@Override
+	public Long saveIncomeData(IncomeBinding incomeBinding) {
+		Income incomeEntity = new Income(); 
+		
+		BeanUtils.copyProperties(incomeBinding, incomeEntity);
+		
+		incomeRepo.save(incomeEntity);
+		return incomeEntity.getCaseNum();
+	}
+
+	@Override
+	public Long savePlanSelection(PlanSelectionBinding selectionBinding) {
+		Optional<CaseEntity> optional = caseEntityRepo.findById(selectionBinding.getCaseNum());
+		if (optional.isPresent()) {
+			CaseEntity caseEntity = optional.get();
+			caseEntity.setPlanId(selectionBinding.getPlanId());
+			caseEntityRepo.save(caseEntity);
+			return caseEntity.getCaseNum();
+		}
+		return null;
+	}
+
+
+	@Override
+	public CaseEntity getCaseEntity(Long caseNum) {
+		Optional<CaseEntity> byId = caseEntityRepo.findById(caseNum);
+		if (byId.isPresent()) {
+			return byId.get();
+		}
+		return null;
+	}
+
+}

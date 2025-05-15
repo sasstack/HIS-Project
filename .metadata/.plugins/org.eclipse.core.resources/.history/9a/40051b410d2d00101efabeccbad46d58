@@ -1,0 +1,16 @@
+package com.eligibility.feign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.eligibility.binding.SummaryBinding;
+
+
+@FeignClient(name = "correspondence",url = "http://localhost:8087")
+public interface CorrespondenceFeign {
+
+	@PostMapping("/eligibility/caseNum")
+	public ResponseEntity<SummaryBinding> getSummary(@PathVariable Long caseNum);
+}

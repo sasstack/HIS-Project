@@ -1,0 +1,8 @@
+package com.datacollection.binding;
+
+public class Snippet {
+	public static void main(String[] args) {
+		collectionService
+	}
+}
+

@@ -1,0 +1,27 @@
+package com.criteriademo.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.criteriademo.entity.Employee;
+import com.criteriademo.service.EmployeeService;
+
+@RestController
+public class EmployeeController {
+
+	private EmployeeService employeeService;
+
+	public EmployeeController(EmployeeService employeeService) {
+		super();
+		this.employeeService = employeeService;
+	}
+	
+	@GetMapping("/firstname")
+    public List<Employee> searchFirstName(@PathVariable String firstName){
+		return employeeService.hasFirst(firstName);
+	}
+
+}

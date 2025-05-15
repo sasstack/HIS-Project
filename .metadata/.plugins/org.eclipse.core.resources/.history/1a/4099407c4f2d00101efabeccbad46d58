@@ -1,0 +1,13 @@
+package com.eligibility.repositoy;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.eligibility.binding.EligibilityBinding;
+import com.eligibility.entity.EligibilityEntity;
+
+public interface EligibilityRepo extends JpaRepository<EligibilityEntity, Integer>{
+
+	public Optional<EligibilityBinding> findByCaseNum(Long caseNum);
+}

@@ -1,0 +1,12 @@
+package com.correspondence.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.correspondence.entity.CoTrigger;
+import com.correspondence.service.Optional;
+
+
+public interface CoTriggerRepo extends JpaRepository<CoTrigger, Integer>{
+
+	public Optional<CoTrigger>  findByCaseNum(Integer caseNum);
+}

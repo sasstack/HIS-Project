@@ -1,0 +1,17 @@
+logging:
+  level:
+    org:
+     springframework: debug
+
+planApi:
+ messages:
+  planSaveSucc: Plan Saved Successfully
+  planSaveFail: Plan Save Failed
+  planUpdateSucc: Plan Updated Successfully
+  planUpdateFail: Plan Failed to Update
+  planDeleteSucc: Plan Deleted Successfully
+  planDeleteFail: Plan Failed to Delete
+  planStatusChange: Plan Status Changed Successfully
+  planStatusChangeFail: Plan Status Change Failed
+  planCategorySaveSucc: plan category saved successfully
+  planCategorySaveFail: plan category save Failed

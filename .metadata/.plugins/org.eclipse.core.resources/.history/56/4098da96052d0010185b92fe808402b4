@@ -1,0 +1,10 @@
+package com.correspondence.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.correspondence.entity.CoTrigger;
+
+
+public interface CoTriggerRepo extends JpaRepository<CoTrigger, Integer>{
+
+}

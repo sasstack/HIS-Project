@@ -1,0 +1,11 @@
+package com.correspondence.service;
+
+import com.correspondence.binding.CoTriggerBinding;
+import com.correspondence.entity.CoResponse;
+
+public interface CoTriggerService {
+
+	public CoTriggerBinding saveTrigger(CoTriggerBinding triggerBinding);
+	public CoResponse processPendingTriggers();
+	
+}

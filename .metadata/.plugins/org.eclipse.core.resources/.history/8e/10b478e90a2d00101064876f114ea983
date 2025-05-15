@@ -1,0 +1,27 @@
+package com.correspondence.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+
+import com.correspondence.binding.CoTriggerBinding;
+import com.correspondence.entity.CoTrigger;
+import com.correspondence.repository.CoTriggerRepo;
+
+public class CoTriggerServiceImpl implements CoTriggerService{
+	
+	private CoTriggerRepo triggerRepo;
+
+	public CoTriggerServiceImpl(CoTriggerRepo triggerRepo) {
+		super();
+		this.triggerRepo = triggerRepo;
+	}
+
+	@Override
+	public CoTriggerBinding saveTrigger(CoTriggerBinding triggerBinding) {
+		triggerRepo.findByCaseNum(triggerBinding.getCaseNum());
+		return null;
+	}
+
+
+}

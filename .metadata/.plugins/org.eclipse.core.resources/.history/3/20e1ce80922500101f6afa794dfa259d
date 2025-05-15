@@ -1,0 +1,26 @@
+package com.criteriademo.service;
+
+import java.util.List;
+
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
+import com.criteriademo.entity.Employee;
+import com.criteriademo.repository.EmployeeRepository;
+import com.criteriademo.specification.EmployeeSpecification;
+
+@Service
+public class EmployeeService {
+	
+	private EmployeeRepository employeeRepository;
+
+	public EmployeeService(EmployeeRepository employeeRepository) {
+		super();
+		this.employeeRepository = employeeRepository;
+	}
+
+	public List<Employee> hasFirst(String firstName){
+		Specification<Employee> spec = Specification.where(EmployeeSpecification.hasFirstName(firstName));
+		return employeeRepository.findAll(spec);
+	}
+}

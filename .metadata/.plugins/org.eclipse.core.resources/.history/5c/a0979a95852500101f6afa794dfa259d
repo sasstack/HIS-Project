@@ -1,0 +1,9 @@
+package com.criteriademo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.criteriademo.entity.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/admin-project/pom.xml" />
+        <option value="$PROJECT_DIR$/Api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/app_registration/pom.xml" />
+        <option value="$PROJECT_DIR$/benefit-issuance/pom.xml" />
+        <option value="$PROJECT_DIR$/check-eligibility/pom.xml" />
+        <option value="$PROJECT_DIR$/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/correspondence/pom.xml" />
+        <option value="$PROJECT_DIR$/data_collection/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/reports_api/pom.xml" />
+        <option value="$PROJECT_DIR$/user_management2/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="19" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

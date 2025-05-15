@@ -1,0 +1,14 @@
+package com.criteriademo.specification;
+
+import org.springframework.data.jpa.domain.Specification;
+
+import com.criteriademo.dto.EmployeeSearchCriteria;
+import com.criteriademo.entity.Employee;
+
+public class EmployeeSpecification {
+
+	public static Specification<Employee> findByCriteria(EmployeeSearchCriteria criteria){
+		return (Root<Employee>, query, criteriaBuilder) -> ;
+		
+	}
+}

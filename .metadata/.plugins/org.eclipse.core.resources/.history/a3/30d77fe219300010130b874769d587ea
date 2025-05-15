@@ -1,0 +1,99 @@
+package com.issuance.service;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.issuance.binding.CaseResponse;
+import com.issuance.binding.CitizenData;
+import com.issuance.binding.EligibilityBinding;
+import com.issuance.entity.BenefitIssued;
+import com.issuance.feign.AppRegistrationFeign;
+import com.issuance.feign.DataCollectionFeign;
+import com.issuance.feign.EligibilityFeign;
+import com.issuance.utils.EmailUtils;
+
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class BenefitIssuanceServiceImpl implements BenefitIssuanceService {
+
+	@Autowired
+	private EmailUtils emailUtils;
+	@Autowired
+	private AppRegistrationFeign appRegistrationFeign;
+	
+	@Autowired
+	private DataCollectionFeign collectionFeign;
+	private EligibilityFeign eligibilityFeign;
+	public BenefitIssuanceServiceImpl(EligibilityFeign eligibilityFeign) {
+		super();
+		this.eligibilityFeign = eligibilityFeign;
+	}
+	
+	@Override
+	public void sendMail() {
+		List<EligibilityBinding> eligibleCitizens = eligibilityFeign.EligibleCitizens();
+		for (EligibilityBinding eligibilityBinding : eligibleCitizens) {
+			BenefitIssued benefitIssued = new BenefitIssued();
+			CaseResponse caseResponse = collectionFeign.getCaseEntity(eligibilityBinding.getCaseNum());
+			CitizenData citizenById = appRegistrationFeign.findCitizenById(caseResponse.getAppId());
+			BeanUtils.copyProperties(eligibilityBinding, benefitIssued);
+			benefitIssued.setEmail(citizenById.getEmail());
+			benefitIssued.setMobile(citizenById.getMobile());
+			
+		}
+		
+		Integer appId = caseResponse.getAppId();
+		appRegistrationFeign.findCitizenById(null);
+		generateExcel(null, eligibleCitizens);
+		
+	}
+public void generateExcel(HttpServletResponse respone,List<EligibilityBinding> eligibleCitizens) throws IOException {
+		
+//		List<SearchResponse> all = search(request);
+		XSSFWorkbook workbook =new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet();
+		XSSFRow headerRow = sheet.createRow(0);
+		
+		headerRow.createCell(0).setCellValue("S.no");
+		headerRow.createCell(1).setCellValue("Name");
+		headerRow.createCell(2).setCellValue("Mobile");
+		headerRow.createCell(3).setCellValue("Gender");
+		headerRow.createCell(4).setCellValue("Email");
+		headerRow.createCell(5).setCellValue("SSN");
+		
+//		System.out.println(all);
+		int i=1;
+		for (EligibilityBinding entity : eligibleCitizens) {
+			
+			XSSFRow dataRow = sheet.createRow(i);
+			dataRow.createCell(0).setCellValue(i++);
+			dataRow.createCell(1).setCellValue(entity.getHolderName());
+			dataRow.createCell(2).setCellValue(entity.getPlanName());
+			dataRow.createCell(3).setCellValue(entity.getPlanStatus());
+			dataRow.createCell(4).setCellValue(entity.getBenefitAmt());
+			dataRow.createCell(5).setCellValue(entity.getHolderSsn());
+		};
+		ServletOutputStream outputStream = respone.getOutputStream();
+		workbook.write(outputStream);
+		workbook.close();
+		outputStream.close();
+		String subject = "HIS Eligibility Info";
+		String body = "HIS Eligibility Info";
+		emailUtils.sendEmail(subject, body,appEntity.getEmail() , file);
+		updateTrigger(eligData.getCaseNum(), file);
+		
+		if (file.exists()) {
+		    file.delete();
+		}
+	}
+
+
+}

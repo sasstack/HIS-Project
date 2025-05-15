@@ -1,0 +1,56 @@
+package com.issuance.service;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
+
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class BenefitIssuanceServiceImpl implements BenefitIssuanceService {
+
+	@Override
+	public void sendMail() {
+		
+		
+	}
+public void generateExcel(HttpServletResponse respone,String status) throws IOException {
+		
+//		List<SearchResponse> all = search(request);
+		XSSFWorkbook workbook =new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet();
+		XSSFRow headerRow = sheet.createRow(0);
+		
+		headerRow.createCell(0).setCellValue("S.no");
+		headerRow.createCell(1).setCellValue("Name");
+		headerRow.createCell(2).setCellValue("Mobile");
+		headerRow.createCell(3).setCellValue("Gender");
+		headerRow.createCell(4).setCellValue("Email");
+		headerRow.createCell(5).setCellValue("SSN");
+		headerRow.createCell(6).setCellValue("none");
+		
+		System.out.println(all);
+		int i=1;
+		for (SearchResponse entity : all) {
+			
+			XSSFRow dataRow = sheet.createRow(i);
+			dataRow.createCell(0).setCellValue(i++);
+			dataRow.createCell(1).setCellValue(entity.getName());
+			dataRow.createCell(2).setCellValue(entity.getMobile());
+			dataRow.createCell(3).setCellValue(entity.getGender());
+			dataRow.createCell(4).setCellValue(entity.getEmail());
+			dataRow.createCell(5).setCellValue(entity.getSsn());
+		};
+		ServletOutputStream outputStream = respone.getOutputStream();
+		workbook.write(outputStream);
+		workbook.close();
+		outputStream.close();
+	}
+
+
+}

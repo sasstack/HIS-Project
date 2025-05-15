@@ -1,0 +1,8 @@
+spring.application.name=config-server
+
+server.port=8888
+
+
+spring.cloud.config.server.git.uri=file:///F:/Sasikanth/Fullstack/Vtalent/Project/Code/LocalConfig/ProjectConfig
+spring.cloud.config.server.git.default-label=main
+#spring.config.import=optional:configserver:http://localhost:8888

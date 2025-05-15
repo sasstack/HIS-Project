@@ -1,0 +1,12 @@
+package com.correspondence.service;
+
+import java.util.Optional;
+
+import com.correspondence.binding.CoTriggerBinding;
+import com.correspondence.entity.CoTrigger;
+
+public interface CoTriggerService {
+
+	public Optional<CoTrigger> saveTrigger(CoTriggerBinding triggerBinding);
+	
+}

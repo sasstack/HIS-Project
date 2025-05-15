@@ -1,0 +1,5 @@
+package com.issuance.entity;
+
+public class BenefitIssued {
+
+}

@@ -1,0 +1,5 @@
+package com.issuance.service;
+
+public class BenefitIssuanceService {
+
+}

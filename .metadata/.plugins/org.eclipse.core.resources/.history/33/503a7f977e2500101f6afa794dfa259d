@@ -1,0 +1,5 @@
+package com.criteriademo.repository;
+
+public class EmployeeRepository {
+
+}

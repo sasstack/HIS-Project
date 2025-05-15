@@ -1,0 +1,9 @@
+package com.correspondence.service;
+
+import com.correspondence.binding.CoTriggerBinding;
+
+public interface CoTriggerServiceImpl {
+
+	public CoTriggerBinding saveTrigger(CoTriggerBinding triggerBinding);
+	
+}

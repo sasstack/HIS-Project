@@ -1,0 +1,9 @@
+package com.eligibility.repositoy;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.eligibility.entity.CoTrigger;
+
+public interface CoTriggerRepo extends JpaRepository<CoTrigger, Integer>{
+
+}

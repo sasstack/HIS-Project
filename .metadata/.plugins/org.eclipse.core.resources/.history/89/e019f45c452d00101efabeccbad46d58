@@ -1,0 +1,16 @@
+package com.correspondence.feign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.correspondence.binding.EligibilityBinding;
+
+
+
+
+@FeignClient(name = "check-eligibility",url = "http://localhost:8086")
+public interface DataCollectionFeign {
+
+	@GetMapping("/eligibility/{caseNum}")
+	public EligibilityBinding determineEligibility(Long caseNum); 
+}
