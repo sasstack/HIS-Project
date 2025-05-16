@@ -16,10 +16,10 @@ public class EmailUtils {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-//	public EmailUtils(JavaMailSender mailSender) {
-//		super();
-//		this.mailSender = mailSender;
-//	}
+	public EmailUtils(JavaMailSender mailSender) {
+		super();
+		this.mailSender = mailSender;
+	}
 
 	public boolean sendEmail(String to, String subject, String body){
 		boolean isMailSent= false;
