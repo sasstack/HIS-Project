@@ -45,7 +45,7 @@ public class CaseWorkerServiceImpl implements CaseWorkerService {
 		worker.setAccStatus("In-Active");
 		worker.setPassword(generateRandomPwd());
 		 CaseWorker caseWorker = repo.save(worker);
-		Boolean sendEmail=false;
+		boolean sendEmail=false;
 		if (caseWorker.getUserId()!=null) {
 			String subject = "Registration successful!";
 			String fileName = "email-template.html";

@@ -79,8 +79,8 @@ public class CoTriggerServiceImpl implements CoTriggerService{
 		System.out.println(byTrgStatus);
 		response.setTotalTriggers(Long.valueOf(byTrgStatus.size()));
 
-		Long success = 0l;
-		Long failed = 0l;
+		Long success = 0L;
+		Long failed = 0L;
 		for (CoTrigger trigger : byTrgStatus) {
 			EligibilityBinding eligibilityBinding = eligibilityFeign.getEligibilityByCaseNum(trigger.getCaseNum()).getBody();
 			CaseResponse caseResponse = collectionFeign.getCaseEntity(trigger.getCaseNum());

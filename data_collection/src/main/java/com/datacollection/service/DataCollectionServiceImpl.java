@@ -124,7 +124,7 @@ public class DataCollectionServiceImpl implements DataCollectionService{
 			caseEntity = caseEntityRepo.save(caseEntity);
 			return caseEntity.getCaseNum();
 		}
-		return 0l;
+		return 0L;
 	}
 
 	@Override

@@ -145,7 +145,7 @@ public class EligibilityServiceImplementation implements EligibilityService{
 				response.setDenialReason("High Income");
 			}
 		}
-		if(response.getPlanStatus()==true) {
+		if(response.getPlanStatus()) {
 			response.setPlanStartDate(LocalDate.now());
 			response.setPlanEndDate(LocalDate.now().plusMonths(6));
 			response.setBenefitAmt(350.00);
