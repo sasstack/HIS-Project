@@ -8,8 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
-        <module name="eureka-server" />
+        <module name="admin-server" />
         <module name="Api-gateway" />
+        <module name="eureka-server" />
       </profile>
       <profile name="Annotation profile for reports_api" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -24,7 +25,6 @@
         <module name="correspondence" />
         <module name="app_registration" />
         <module name="benefit-issuance" />
-        <module name="admin-project" />
       </profile>
       <profile name="Annotation profile for user_management" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -38,12 +38,22 @@
         </processorPath>
         <module name="user_management" />
       </profile>
+      <profile name="Annotation profile for admin-project" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="admin-project" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Api-gateway" options="-parameters" />
       <module name="admin-project" options="-parameters" />
+      <module name="admin-server" options="-parameters" />
       <module name="app_registration" options="-parameters" />
       <module name="benefit-issuance" options="-parameters" />
       <module name="check-eligibility" options="-parameters" />
