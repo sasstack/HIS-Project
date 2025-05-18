@@ -19,11 +19,8 @@
         <processorPath>
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
-        <module name="app_registration" />
-        <module name="data_collection" />
-        <module name="check-eligibility" />
         <module name="reports_api" />
-        <module name="benefit-issuance" />
+        <module name="data_collection" />
         <module name="correspondence" />
       </profile>
       <profile name="Annotation profile for user_management" enabled="true">
@@ -38,14 +35,33 @@
         </processorPath>
         <module name="user_management" />
       </profile>
-      <profile name="Annotation profile for admin-project" enabled="true">
+      <profile name="Annotation profile for app_registration" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath>
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
+        <module name="app_registration" />
         <module name="admin-project" />
+      </profile>
+      <profile name="Annotation profile for benefit-issuance" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath>
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="benefit-issuance" />
+      </profile>
+      <profile name="Annotation profile for check-eligibility" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath>
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="check-eligibility" />
       </profile>
     </annotationProcessing>
   </component>
