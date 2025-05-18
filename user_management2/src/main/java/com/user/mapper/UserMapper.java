@@ -24,7 +24,7 @@ public interface UserMapper {
     // Map registration request to User entity
     @Mapping(target = "userId", ignore = true)
     @Mapping(target = "accStatus", ignore = true)
-    @Mapping(target = "password", ignore = true)
+//    @Mapping(target = "password", source = "password")
     @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "updatedDate", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -37,11 +37,13 @@ public interface UserMapper {
     // Map LoginRequest to User entity
     @Mapping(target = "userId", ignore = true)
     @Mapping(target = "fullName", ignore = true)
+    @Mapping(target = "email", ignore = true)
     @Mapping(target = "mobile", ignore = true)
     @Mapping(target = "gender", ignore = true)
     @Mapping(target = "dateOfBirth", ignore = true)
     @Mapping(target = "ssn", ignore = true)
     @Mapping(target = "accStatus", ignore = true)
+    @Mapping(source = "password", target = "password")
     @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "updatedDate", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -51,6 +53,7 @@ public interface UserMapper {
     // Map ActivateAccount to User entity for updating
     @Mapping(target = "userId", ignore = true)
     @Mapping(target = "fullName", ignore = true)
+    @Mapping(target = "email", ignore = true)
     @Mapping(target = "mobile", ignore = true)
     @Mapping(target = "gender", ignore = true)
     @Mapping(target = "dateOfBirth", ignore = true)

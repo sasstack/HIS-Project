@@ -44,7 +44,7 @@ public class User {
 //	private String tempPassword;
 	
 	@Column(name="PASSWORD")
-	private String Password;
+	private String password;
 	
 	@Column(name="CREATED_DATE", updatable = false)
 	private LocalDate createdDate;
