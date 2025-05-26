@@ -3,6 +3,7 @@ package com.datacollection.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import com.datacollection.binding.PlanSelectionBinding;
 import com.datacollection.binding.SummaryBinding;
 import com.datacollection.service.DataCollectionService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ChildrenController {
 
